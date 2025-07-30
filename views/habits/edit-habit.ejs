@@ -6,14 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>add a habit</h1>
-    <form action="/habits/new" method="post">
+    <h1>edit habit</h1>
+    <form action="/habits/all-habits/<%=foundHabit._id%>/edit?_method=PUT" method="post">
         <label for="name">habit:</label>
-        <input id="name" name="name" type="text">
+        <input id="name" name="name" type="text" value="<%=foundHabit.name%>">
 
         <label for="reason">why do you want to do this?</label>
-        <input id="reason" name="reason" type="text">
-        <button>add habit</button>
+        <input id="reason" name="reason" type="text" value="<%=foundHabit.reason%>">
+        <button>edit habit</button>
     </form>
 </body>
 </html>

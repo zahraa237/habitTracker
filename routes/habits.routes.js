@@ -48,8 +48,16 @@ router.delete("/all-habits/:habitId", async (req, res) => {
 })
 
 //edit
-router.put("/all-habits/:habitId", async (req,res) => {
-    
+
+router.get("/all-habits/:habitId/edit",async (req,res)=>{
+    const foundHabit = await Habit.findById(req.params.habitId)
+    res.render("habits/edit-habit.ejs", {foundHabit: foundHabit})
+} )
+
+
+router.put("/all-habits/:habitId/edit", async (req,res) => {
+    await Habit.findByIdAndUpdate(req.params.habitId, req.body)
+    res.redirect(`/habits/all-habits/${req.params.habitId}`)
 })
 
 module.exports = router
