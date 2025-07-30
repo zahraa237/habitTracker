@@ -5,6 +5,8 @@ const dotenv = require("dotenv").config()
 const methodOverride = require("method-override")
 const conntectToDB = require('./db.js')
 const authRoutes = require("./routes/auth.routes")
+const session = require("express-session")
+
 
 
 app.get("/", (req,res) => {
@@ -13,6 +15,9 @@ app.get("/", (req,res) => {
 
 // connect to database
 conntectToDB()
+
+//middleware
+app.use(express.urlencoded({ extended: false }))
 
 
 
