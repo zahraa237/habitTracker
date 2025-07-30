@@ -2,18 +2,21 @@ const router = require("express").Router()
 const User = require("../models/User")
 const bcrypt = require("bcrypt")
 
-//sign-in
+//homepage
+router.get("/", (req,res) => {
+    res.render("../views/auth/homepage.ejs")
+})
+
+//sign-up
 router.get("/signup", (req,res) => {
     res.render("auth/signup.ejs")
 })
 
 router.post("/signup",async(req,res)=>{
     try{
-        // console.log(req.body.password)
         const hashedPassword = bcrypt.hashSync(req.body.password,10) // encrypts our password
         req.body.password = hashedPassword
-        const createdUser = await User.create(req.body)
-        console.log (createdUser)
+        await User.create(req.body)
         res.redirect("/auth/login")
     }
 
@@ -43,9 +46,7 @@ router.post("/login",async(req,res)=>{
             username: foundUser.username,
             _id: foundUser._id
         }
-
-        res.redirect("")
-
+        res.redirect("/habits/all-habits.ejs")
     }
     catch(error){
 
