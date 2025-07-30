@@ -46,7 +46,7 @@ router.post("/login",async(req,res)=>{
             username: foundUser.username,
             _id: foundUser._id
         }
-        res.redirect("/habits/all-habits.ejs")
+        res.redirect("/habits/all-habits.ejs") 
     }
     catch(error){
 

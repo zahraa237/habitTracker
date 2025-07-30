@@ -13,11 +13,20 @@ conntectToDB()
 
 //middleware
 app.use(express.urlencoded({ extended: false }))
-
-
+app.use(methodOverride("_method"))
+// app.use(
+//     session({
+//         secret: process.env.SESSION_SECRET,
+//         resave: false,
+//         saveUninitialized: true,
+//     })
+// );
 
 app.use("/auth", authRoutes)
 app.use("/habits", habitRoutes)
+
+
+
 
 // Listen on port 3000
 const port = process.env.PORT || 3000

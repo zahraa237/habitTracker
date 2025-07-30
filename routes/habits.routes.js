@@ -32,8 +32,24 @@ router.get ("/all-habits", async (req,res) => {
 })
 
 router.get("/all-habits/:habitId", async (req, res) => {
-    const foundHabit = await Habit.findById(req.params.habitId)
-    res.render("habits/habit-details.ejs", {foundHabit: foundHabit}
-        )
+    try {
+        const foundHabit = await Habit.findById(req.params.habitId)
+        res.render("habits/habit-details.ejs", {foundHabit: foundHabit})
+    } catch (error) {
+        console.log(error)
+    }
 })
+
+//delete
+
+router.delete("/all-habits/:habitId", async (req, res) => {
+    await Habit.findByIdAndDelete (req.params.habitId)
+    res.redirect("/habits/all-habits")
+})
+
+//edit
+router.put("/all-habits/:habitId", async (req,res) => {
+    
+})
+
 module.exports = router
