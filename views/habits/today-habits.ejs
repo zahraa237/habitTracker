@@ -1,17 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    
+    <style>
+        ul {
+            list-style-type: none; /* Remove bullets */
+            padding: 0; /* Remove padding */
+            margin: 0; /* Remove margins */
+        }
+        ul li.completed {
+            background: #888;
+            color: #fff;
+            text-decoration: line-through;
+        }
+    </style>
 </head>
 <body>
-    <h1>hi</h1>
     <div id="dates">
-    <p id="weekday"><%= weekDay %></p>
-    <p id="day"><%= day %></p>
+        <p id="weekday"><%= weekDay %></p>
+        <p id="day"><%= day %></p>
     </div>
+    <% allHabits.forEach( (oneHabit) => {%>
+    <ul id="UL">
+        <li id="item"><%= oneHabit.name %></li>
+    </ul>
+    <br />
+    <% })%>
 
+    <script>
+        const list = document.querySelectorAll("#item");
+        list.forEach((elem) => {
+            elem.addEventListener("click", (event) => {
+            event.target.classList.toggle("completed");
+            list.removeChild(elem)
+            list.appendChild(elem)
+            });
+        });
+    </script>
 </body>
 </html>

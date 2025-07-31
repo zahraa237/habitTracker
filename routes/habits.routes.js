@@ -68,8 +68,9 @@ const day = (date.getDate())
 // document.getElementById('weekday').textContent = weekDay
 // document.getElementById('day').textContent = day
 //todays habits
-router.get("/today-habits", (req, res) =>{
-    res.render("habits/today-habits.ejs", {weekDay: weekDay, day: day})
+router.get("/today-habits", async (req, res) =>{
+    const allHabits = await Habit.find()
+    res.render("habits/today-habits.ejs", {weekDay: weekDay, day: day,allHabits:allHabits})
 })
 
 module.exports = router
