@@ -5,16 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        ul {
-            list-style-type: none; /* Remove bullets */
-            padding: 0; /* Remove padding */
-            margin: 0; /* Remove margins */
+        #dates {
+            background-color: grey;
         }
+
+        /* hiding the checkbox */
+        /* input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        } */
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+        } 
+        ul {
+            list-style-image: url("1f408.png");
+            list-style-type:none; 
+            padding: 0;
+            margin: 0;
+        } 
         ul li.completed {
-            background: #888;
+            background: #ce8787;
             color: #fff;
             text-decoration: line-through;
-        }
+        } 
     </style>
 </head>
 <body>
@@ -22,20 +44,21 @@
         <p id="weekday"><%= weekDay %></p>
         <p id="day"><%= day %></p>
     </div>
+    <ul id="myList">
     <% allHabits.forEach( (oneHabit) => {%>
-    <ul id="UL">
-        <li id="item"><%= oneHabit.name %></li>
-    </ul>
-    <br />
+        <li><%= oneHabit.name %></li>
+        <br />
     <% })%>
+    </ul>
 
     <script>
-        const list = document.querySelectorAll("#item");
-        list.forEach((elem) => {
-            elem.addEventListener("click", (event) => {
-            event.target.classList.toggle("completed");
-            list.removeChild(elem)
-            list.appendChild(elem)
+        const list = document.querySelector("#myList");
+        const items = list.querySelectorAll('li')
+        console.log(items)
+        items.forEach((elem) => {
+            elem.addEventListener("click", () => {
+                event.target.classList.toggle("completed");
+                list.appendChild(elem)
             });
         });
     </script>
