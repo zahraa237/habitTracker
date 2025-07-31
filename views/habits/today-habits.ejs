@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
 </head>
 <body>
-    <h1>habits</h1>
-    <% allHabits.forEach( (oneHabit) => {%>
-        <a href="all-habits/<%= oneHabit.id %>"><%= oneHabit.name %></a>
-        <br>
-    <% })%>
-    <a href="/habits/new">+</a>
+    <h1>hi</h1>
+    <div id="dates">
+    <p id="weekday"><%= weekDay %></p>
+    <p id="day"><%= day %></p>
+    </div>
+
 </body>
 </html>

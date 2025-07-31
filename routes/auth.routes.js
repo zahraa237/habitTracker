@@ -4,7 +4,12 @@ const bcrypt = require("bcrypt")
 
 //homepage
 router.get("/", (req,res) => {
-    res.render("../views/auth/homepage.ejs")
+    try {
+        res.render("auth/homepage.ejs")
+    } catch (error) {
+        console.log(error)
+    }
+    
 })
 
 //sign-up
@@ -46,10 +51,10 @@ router.post("/login",async(req,res)=>{
             username: foundUser.username,
             _id: foundUser._id
         }
-        res.redirect("/habits/all-habits.ejs") 
+        res.redirect("/habits/all-habits") 
     }
     catch(error){
-
+        console.log(error)
     }
 })
 

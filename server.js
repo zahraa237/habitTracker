@@ -25,7 +25,13 @@ app.use(methodOverride("_method"))
 app.use("/auth", authRoutes)
 app.use("/habits", habitRoutes)
 
+//date
+// const date = new Date()
+// const weekDay = date.toLocaleDateString('', {weekDay: 'short'})
+// const day = date.getDate()
 
+// document.getElementById('weekday').textContent = weekDay
+// document.getElementById('day').textContent = day
 
 
 // Listen on port 3000

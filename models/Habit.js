@@ -9,7 +9,8 @@ const habitSchema = new mongoose.Schema({
     reason:{
         type:String,
         required:true
-    }
+    },
+    icon: String
 })
 
 const Habit = mongoose.model("Habit", habitSchema)

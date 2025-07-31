@@ -9,6 +9,7 @@
     <h1>habit details</h1>
     <p>name: <%=foundHabit.name %></p>
     <p>why do you wanna do this? <%=foundHabit.reason%></p>
+    <p><%=foundHabit.icon %></p>
 
     <form action="/habits/all-habits/<%=foundHabit._id%>?_method=DELETE" method="post">
         <button type="submit">Delete</button>

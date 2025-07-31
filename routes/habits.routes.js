@@ -60,4 +60,16 @@ router.put("/all-habits/:habitId/edit", async (req,res) => {
     res.redirect(`/habits/all-habits/${req.params.habitId}`)
 })
 
+//get the date
+const date = new Date()
+const weekDay = date.toLocaleDateString( 'en-US', {weekday: 'short'})
+const day = (date.getDate())
+
+// document.getElementById('weekday').textContent = weekDay
+// document.getElementById('day').textContent = day
+//todays habits
+router.get("/today-habits", (req, res) =>{
+    res.render("habits/today-habits.ejs", {weekDay: weekDay, day: day})
+})
+
 module.exports = router
