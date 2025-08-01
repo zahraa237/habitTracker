@@ -1,0 +1,119 @@
+        #dates {
+            background-color: grey;
+        }
+/* 
+        ul {
+            list-style-image: url("1f408.png");
+            list-style-type:none; 
+            padding: 0;
+            margin: 0;
+        }  */
+        /* ul li.completed {
+            background: #ce8787;
+            color: #fff;
+            text-decoration: line-through;
+        }  */
+
+
+        /* input {
+            appearance: none;
+            display: grid;
+            place-content:center;
+        }
+        input::before{
+            content: "";
+            width:0.65em;
+            height:0.65em;
+            transform: scale(0);
+            transition: 120ms;
+            box-shadow: inset 1em 1em red;
+            transform-origin: bottom left; 
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+            background-color: CanvasText;
+        }
+        input[type="checkbox"]:checked::before {
+            transform: scale(1);
+        }
+        input[type="checkbox"]:focus {
+            outline: max(2px, 0.15em) solid currentColor; 
+            outline-offset: max(2px, 0.15em);             
+        } */
+
+        .checkbox-control {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  -webkit-user-select: none; /* Safari + iOS */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer */
+  user-select: none; /* منع تحديد النص عند النقر */
+  gap: 0.5em;
+}
+
+/* إخفاء الـ checkbox الحقيقي */
+.checkbox-control input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 1.25em;
+  height: 1.25em;
+}
+
+/* تصميم مربع الاختيار المخصص */
+.custom-checkmark {
+  width: 1.25em;
+  height: 1.25em;
+  background-color: white;
+  border: 2px solid #555;
+  border-radius: 4px;
+  position: relative;
+  transition: background-color 0.2s, border-color 0.2s;
+  display: flex;
+  pointer-events: none;
+  justify-content: center;
+  align-items: center;
+}
+
+/* علامة الصح (✓) داخل الـ custom-checkmark */
+.custom-checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 0.35em;
+  top: 0.1em;
+  width: 0.25em;
+  height: 0.5em;
+  border: solid white;
+  border-width: 0 0.2em 0.2em 0;
+  transform: rotate(45deg);
+}
+
+/* إظهار علامة الصح عند تحديد الـ checkbox */
+.checkbox-control input[type="checkbox"]:checked + .custom-checkmark {
+  background-color: #f321d7;
+  border-color: #2196F3;
+    /* background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Cat_icon_-_black_simple.svg/120px-Cat_icon_-_black_simple.svg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; */
+}
+
+.custom-checkmark img {
+  width: 60%;
+  height: 60%;
+  display: none; /* الصورة مخفية بشكل افتراضي */
+  pointer-events: none;
+}
+
+.checkbox-control input[type="checkbox"]:checked + .custom-checkmark img {
+display: block;
+}
+
+.checkbox-control input[type="checkbox"]:checked + .custom-checkmark::after {
+  display: none;
+}
+
+/* تأثير التركيز */
+.checkbox-control input[type="checkbox"]:focus + .custom-checkmark {
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.5);
+}

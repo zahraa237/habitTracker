@@ -4,63 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-        #dates {
-            background-color: grey;
-        }
-
-        /* hiding the checkbox */
-        /* input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
-        } */
-
-        .checkmark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 25px;
-            width: 25px;
-            background-color: #eee;
-        } 
-        ul {
-            list-style-image: url("1f408.png");
-            list-style-type:none; 
-            padding: 0;
-            margin: 0;
-        } 
-        ul li.completed {
-            background: #ce8787;
-            color: #fff;
-            text-decoration: line-through;
-        } 
-    </style>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
     <div id="dates">
         <p id="weekday"><%= weekDay %></p>
         <p id="day"><%= day %></p>
     </div>
-    <ul id="myList">
+    <!-- <ul id="myList"> -->
     <% allHabits.forEach( (oneHabit) => {%>
-        <li><%= oneHabit.name %></li>
+        <!-- <li><%= oneHabit.name %></li> -->
+        <label class="checkbox-control">
+        <input type="checkbox" name="checkbox" />
+        <span class="custom-checkmark">
+            <img src="/images/CAT_emoji_icon_png_grande.webp" alt="cat" />
+        </span>
+        <%= oneHabit.name %>
+        </label>
+        
         <br />
     <% })%>
-    </ul>
+    <!-- </ul> -->
 
     <script>
-        const list = document.querySelector("#myList");
-        const items = list.querySelectorAll('li')
-        console.log(items)
-        items.forEach((elem) => {
-            elem.addEventListener("click", () => {
-                event.target.classList.toggle("completed");
-                list.appendChild(elem)
-            });
-        });
+        // const list = document.querySelector("#myList");
+        // const items = list.querySelectorAll('li')
+        // console.log(items)
+        // items.forEach((elem) => {
+        //     elem.addEventListener("click", () => {
+        //         event.target.classList.toggle("completed");
+        //         list.appendChild(elem)
+        //     });
+        // });
     </script>
 </body>
 </html>
