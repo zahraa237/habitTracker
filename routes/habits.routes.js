@@ -52,7 +52,7 @@ router.delete("/all-habits/:habitId", async (req, res) => {
 router.get("/all-habits/:habitId/edit",async (req,res)=>{
     const foundHabit = await Habit.findById(req.params.habitId)
     res.render("habits/edit-habit.ejs", {foundHabit: foundHabit})
-} )
+})
 
 
 router.put("/all-habits/:habitId/edit", async (req,res) => {
@@ -71,6 +71,25 @@ const day = (date.getDate())
 router.get("/today-habits", async (req, res) =>{
     const allHabits = await Habit.find()
     res.render("habits/today-habits.ejs", {weekDay: weekDay, day: day,allHabits:allHabits})
+})
+
+//----------------------------------------------------------- ICONS HANDEL -----------------------------------------------------//
+
+// const iconsContainer = document.querySelector('.icons-container')
+// const icons = ["CAT_emoji_icon_png_grande.webp", "1f408.png"]
+// let chosenIcon
+
+// icons.forEach ((oneIcon) => {
+//     const img = document.createElement('img')
+//     img.src = `/images/${oneIcon}`
+//     img.addEventListener('click',()=> {
+//         chosenIcon = oneIcon
+//     })
+//     iconsContainer.appendChild(img)
+// })
+
+router.get("/icons", (req,res) => {
+    res.render("habits/icons.ejs")//, {icons: icons} , {chosenIcon: chosenIcon}
 })
 
 module.exports = router
