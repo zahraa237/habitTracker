@@ -1,45 +1,27 @@
-        #dates {
-            background-color: grey;
-        }
-/* 
-        ul {
-            list-style-image: url("1f408.png");
-            list-style-type:none; 
-            padding: 0;
-            margin: 0;
-        }  */
-        /* ul li.completed {
-            background: #ce8787;
-            color: #fff;
-            text-decoration: line-through;
-        }  */
+body{
+  background-color:#f3f6f3;
+}
+.container{
+  border: 3px solid black;
+}
+#dates {
+  display: flex;
+  justify-content:center;
+  text-align: center;
+  align-items: center;
+  border: 1px  solid black;
+  background-color:#f4dfe6;
+  color:#e0a3bb;
+  height: 100px;
+  width: 100px;
+  padding:10px;
+  font-size:20px;
+  margin: auto;
+  border-radius: 7px;
+  line-height: 0.5;
+}
 
-
-        /* input {
-            appearance: none;
-            display: grid;
-            place-content:center;
-        }
-        input::before{
-            content: "";
-            width:0.65em;
-            height:0.65em;
-            transform: scale(0);
-            transition: 120ms;
-            box-shadow: inset 1em 1em red;
-            transform-origin: bottom left; 
-            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-            background-color: CanvasText;
-        }
-        input[type="checkbox"]:checked::before {
-            transform: scale(1);
-        }
-        input[type="checkbox"]:focus {
-            outline: max(2px, 0.15em) solid currentColor; 
-            outline-offset: max(2px, 0.15em);             
-        } */
-
-        .checkbox-control {
+.checkbox-control {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -92,10 +74,6 @@
 .checkbox-control input[type="checkbox"]:checked + .custom-checkmark {
   background-color: #f321d7;
   border-color: #2196F3;
-    /* background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Cat_icon_-_black_simple.svg/120px-Cat_icon_-_black_simple.svg.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain; */
 }
 
 .custom-checkmark img {
@@ -117,3 +95,4 @@ display: block;
 .checkbox-control input[type="checkbox"]:focus + .custom-checkmark {
   box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.5);
 }
+

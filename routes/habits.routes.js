@@ -62,34 +62,26 @@ router.put("/all-habits/:habitId/edit", async (req,res) => {
 
 //get the date
 const date = new Date()
-const weekDay = date.toLocaleDateString( 'en-US', {weekday: 'short'})
-const day = (date.getDate())
+    const weekDay = date.toLocaleDateString( 'en-US', {weekday: 'long'})
+    const day = date.getDate()
+    const month = date.toLocaleDateString( 'en-US', {month: 'long'})
 
-// document.getElementById('weekday').textContent = weekDay
-// document.getElementById('day').textContent = day
-//todays habits
+
 router.get("/today-habits", async (req, res) =>{
     const allHabits = await Habit.find()
-    res.render("habits/today-habits.ejs", {weekDay: weekDay, day: day,allHabits:allHabits})
+    res.render("habits/today-habits.ejs", {weekDay: weekDay, day: day, month: month ,allHabits:allHabits})
 })
 
-//----------------------------------------------------------- ICONS HANDEL -----------------------------------------------------//
 
-// const iconsContainer = document.querySelector('.icons-container')
-// const icons = ["CAT_emoji_icon_png_grande.webp", "1f408.png"]
-// let chosenIcon
-
-// icons.forEach ((oneIcon) => {
-//     const img = document.createElement('img')
-//     img.src = `/images/${oneIcon}`
-//     img.addEventListener('click',()=> {
-//         chosenIcon = oneIcon
-//     })
-//     iconsContainer.appendChild(img)
-// })
+//record
+router.get('/records', async (req,res) => {
+    const allHabits = await Habit.find()
+    const days = ['S','M','T','W','T','F','S']
+    res.render('habits/record.ejs', {days: days, allHabits:allHabits})
+})
 
 router.get("/icons", (req,res) => {
-    res.render("habits/icons.ejs")//, {icons: icons} , {chosenIcon: chosenIcon}
+    res.render("habits/icons.ejs")
 })
 
 module.exports = router

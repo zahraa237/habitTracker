@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .habit-container {
+        border: 2px solid black;
+        display:flex;
+        gap: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <% allHabits.forEach( (oneHabit) => {%>
+        <div class="habit-container">
+        <a href="all-habits/<%= oneHabit.id %>"><%= oneHabit.name %></a>
+        <div class="days"></div>
+        <% days.forEach( (day) => {%>
+            <p><%= day %></p>
+        <%})%>
+        </div>
+    <% })%>
+    </div>
+</body>
+</html>

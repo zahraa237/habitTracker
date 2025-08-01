@@ -7,35 +7,27 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <div class="container">
     <div id="dates">
-        <p id="weekday"><%= weekDay %></p>
-        <p id="day"><%= day %></p>
+        <div class="today">
+            <p><%= weekDay %> </p>
+            <p><%= day %></p>
+            <p><%=month%></p>
+        </div>
+
+        
     </div>
-    <!-- <ul id="myList"> -->
     <% allHabits.forEach( (oneHabit) => {%>
-        <!-- <li><%= oneHabit.name %></li> -->
         <label class="checkbox-control">
         <input type="checkbox" name="checkbox" />
         <span class="custom-checkmark">
-            <img src="/images/CAT_emoji_icon_png_grande.webp" alt="cat" />
+        <img src="/images/CAT_emoji_icon_png_grande.webp" alt="cat" />
         </span>
         <%= oneHabit.name %>
         </label>
         
         <br />
     <% })%>
-    <!-- </ul> -->
-
-    <script>
-        // const list = document.querySelector("#myList");
-        // const items = list.querySelectorAll('li')
-        // console.log(items)
-        // items.forEach((elem) => {
-        //     elem.addEventListener("click", () => {
-        //         event.target.classList.toggle("completed");
-        //         list.appendChild(elem)
-        //     });
-        // });
-    </script>
+</div>
 </body>
 </html>

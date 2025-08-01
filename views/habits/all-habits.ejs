@@ -8,6 +8,7 @@
 <body>
     <h1>habits</h1>
     <% allHabits.forEach( (oneHabit) => {%>
+        <img src="/images/<%=oneHabit.icon %>">
         <a href="all-habits/<%= oneHabit.id %>"><%= oneHabit.name %></a>
         <br>
     <% })%>
