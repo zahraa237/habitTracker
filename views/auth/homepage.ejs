@@ -10,50 +10,54 @@
             display: flex;
             justify-content: center;
             background-color:#f3f6f3;
-            background-size: cover;
         }
         .container{
+            background-image: url("/images/mountain1.jpeg");
             height: 600px;
             width:1000px;
-            background-image: url("/images/Calming pixel art landscape.jpeg");
+            background-repeat: no-repeat;
+            background-size: cover;
             margin-top: 30px;
             border-radius: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background-repeat: no-repeat;
-            background-size: cover;
         }
         .form-container{
             display: flex;
-            /* border: 3px solid black; */
             height: 100px;
-            width:300px;
-            align-content: space-between;
+            /* width:300px; */
+            /* align-content: space-between; */
             justify-content: center;
-            align-items: center;
-            gap: 300px;
+            /* align-items: center; */
+            /* gap: 300px; */
         }
         form{
             display: flex;
             flex-direction: column;
             justify-content: center;
-            /* align-items: center; */
             gap:5px;
             font-size: 20px;
         }
         input{
-            width: 300px;  
-            height: 20px;   
+            padding: 10px;
             font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 300px;
         }
         button{
-            width: 100px;  
+            /* width: 100px;  
             height: 25px;
             align-self: center;
             border-radius: 3px;
-            border: 1px solid black;
+            border: 1px solid black; */
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
         }
         button:hover{
             background-color: #94c000;
@@ -61,7 +65,8 @@
         .link-button {
             display: flex;
             gap: 15px;
-            margin-top: 27px;
+            margin-top: 50px;
+            background-color: green;
         }
     </style>
 </head>
@@ -77,8 +82,8 @@
                 <button>Login</button>
             </form>  
         </div>
-        <div class="link-button">
-            <button onclick="window.location.href='/auth/signup'">sign up</button>
+        <!-- <div class="link-button"> -->
+            <button class= "link-button" onclick="window.location.href='/auth/signup'">sign up</button>
         </div>
     </div>
 

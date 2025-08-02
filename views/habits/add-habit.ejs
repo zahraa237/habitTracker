@@ -5,6 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 600px;
+            justify-content: center;
+            align-items: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 500px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+        
+        input {
+            padding: 10px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+        }   
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .add-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .showIcons {
+            background-color: #ddd;
+            color: #333;
+        }
     .icons-container{
     display:flex;
     align-items: center;
@@ -16,9 +74,7 @@
     left:0;
     height:100vh;
     width:100vw;
-
 }
-
 .model{
     border-radius: 5px;
     border: 2px solid black;
@@ -28,7 +84,6 @@
     background-color:white;
     font-size: 20px;
 }
-
 .icons-container.show {
     pointer-events:auto;
     opacity: 1;
@@ -36,11 +91,14 @@
 .chosen{
     border: 2px solid black;
 }
+
     </style>
 </head>
 <body>
-    <h1>add a habit</h1>
-    <form action="/habits/new" method="post">
+    
+    <div class="form-container">
+        <h1>add a habit</h1>
+        <form action="/habits/new" method="post">
         <label for="name">habit:</label>
         <input id="name" name="name" type="text">
 
@@ -48,12 +106,15 @@
         <input id="reason" name="reason" type="text">
 
         <input type="hidden" name="icon" id="iconInput">
+            <div class="buttons">
+            <button id ="showIcons" type="button">icon</button>
+            <button class="add-btn">add habit</button> 
+            </div>
             
-            <button id ="showIcons">icon</button>
-
-
-        <button>add habit</button>
     </form>
+    </div>
+    <!-- <h1>add a habit</h1> -->
+
     <div class="icons-container" id="icons-container">
     <div class="model">
         <h1>choose an icon</h1>
@@ -62,8 +123,6 @@
         <button id="close">confirm</button>
         </div>
     </div>
-        
-        
 
     <script>
         // const iconsContainer = document.querySelector('.icons-container')
@@ -81,7 +140,10 @@
         img.height = 60
         img.style.margin = "10px"
         img.addEventListener('click',()=> {
-            img.classList.toggle("chosen")
+            document.querySelectorAll('#icons-area img').forEach(icon => {
+                icon.classList.remove('chosen');})
+            
+            img.classList.add("chosen")
             chosenIcon = oneIcon
 
                 document.getElementById("iconInput").value = chosenIcon;

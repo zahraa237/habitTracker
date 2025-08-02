@@ -13,12 +13,15 @@
             <p> <%= day %>  </p>
             <p><%=month%>    </p>
     </div>
+        <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
     <div class="habits">
     <% allHabits.forEach( (oneHabit) => {%>
         <label class="checkbox-control">
-        <input type="checkbox" name="checkbox" />
+        <input type="checkbox" name="checkbox" onchange="increaseProgress()" />
         <span class="custom-checkmark">
-        <img src="/images/download.jpeg" alt="cat" />
+        <img src="/images/download.jpeg"/>
         </span>
         <%= oneHabit.name %>
         </label>
@@ -26,7 +29,19 @@
     <% })%>
     </div>
     <div class="profile-pic"></div>
-        <p></p>
 </div>
+<script>
+    let progress = 0;
+    function increaseProgress() {   
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const total = checkboxes.length;
+
+        const checked = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+        const percentage = (checked / total) * 100;
+            document.getElementById("progress-bar").style.width = percentage + "%";
+        }
+        window.onload = increaseProgress;
+
+</script>
 </body>
 </html>

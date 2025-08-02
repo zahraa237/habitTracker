@@ -81,3 +81,18 @@ display: block;
   right:20px;
   
 }
+
+.progress-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  height: 30px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: #528052;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}

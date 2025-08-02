@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const User = require("../models/User")
 
 const habitSchema = new mongoose.Schema({
     name:{
@@ -10,7 +11,10 @@ const habitSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    icon: String
+    icon: String,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",}
 })
 
 const Habit = mongoose.model("Habit", habitSchema)
