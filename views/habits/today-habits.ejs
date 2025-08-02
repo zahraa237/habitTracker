@@ -9,25 +9,24 @@
 <body>
     <div class="container">
     <div id="dates">
-        <div class="today">
-            <p><%= weekDay %> </p>
-            <p><%= day %></p>
-            <p><%=month%></p>
-        </div>
-
-        
+            <p><%= weekDay %> | </p><br>
+            <p> <%= day %>  </p>
+            <p><%=month%>    </p>
     </div>
+    <div class="habits">
     <% allHabits.forEach( (oneHabit) => {%>
         <label class="checkbox-control">
         <input type="checkbox" name="checkbox" />
         <span class="custom-checkmark">
-        <img src="/images/CAT_emoji_icon_png_grande.webp" alt="cat" />
+        <img src="/images/download.jpeg" alt="cat" />
         </span>
         <%= oneHabit.name %>
         </label>
-        
         <br />
     <% })%>
+    </div>
+    <div class="profile-pic"></div>
+        <p></p>
 </div>
 </body>
 </html>

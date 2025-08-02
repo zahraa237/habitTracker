@@ -21,15 +21,20 @@
 
 .model{
     border-radius: 5px;
+    border: 2px solid black;
+    padding: 20px;
     width:600px;
     text-align: center;
-    background-color: #7891af;
+    background-color:white;
     font-size: 20px;
 }
 
 .icons-container.show {
     pointer-events:auto;
     opacity: 1;
+}
+.chosen{
+    border: 2px solid black;
 }
     </style>
 </head>
@@ -44,47 +49,52 @@
 
         <input type="hidden" name="icon" id="iconInput">
             
-            <button id ="howToPlay">?</button>
+            <button id ="showIcons">icon</button>
 
 
         <button>add habit</button>
     </form>
-
-    <!---------------------------------------------------------------ICONS POPUP -------------------------------------------------------->
     <div class="icons-container" id="icons-container">
     <div class="model">
+        <h1>choose an icon</h1>
         <div id="icons-area"></div>
+        
         <button id="close">confirm</button>
         </div>
+    </div>
+        
+        
 
     <script>
         // const iconsContainer = document.querySelector('.icons-container')
-        const howToPlay = document.querySelector('#howToPlay')
-        const howToPlayClose = document.querySelector('#close')
+        const showIcons = document.querySelector('#showIcons')
+        const iconsClose = document.querySelector('#close')
         const container = document.querySelector('#icons-container')
                 const iconsArea = document.querySelector('#icons-area')
-        const icons = ["CAT_emoji_icon_png_grande.webp", "1f408.png"]
+        const icons = ["1.png", "2.png", "3.png", "4.png", "5.png", "7.png", "8.png", "9.png", "10.png", "11.png", "12.png", "13.png", "14.png", "15.png"]
         let chosenIcon
 
     icons.forEach ((oneIcon) => {
         const img = document.createElement('img')
         img.src = `/images/${oneIcon}`
-        img.width = "100"
-        img.height = "100"
+        img.width = 60
+        img.height = 60
+        img.style.margin = "10px"
         img.addEventListener('click',()=> {
+            img.classList.toggle("chosen")
             chosenIcon = oneIcon
+
                 document.getElementById("iconInput").value = chosenIcon;
         })
         iconsArea.appendChild(img)
     })
 
-        howToPlay.addEventListener('click', () => {
+        showIcons.addEventListener('click', () => {
         container.classList.add('show') 
     })
-    howToPlayClose.addEventListener('click', () => {
+    iconsClose.addEventListener('click', () => {
         container.classList.remove('show') 
     })
-
     </script>
 </body>
 </html>
