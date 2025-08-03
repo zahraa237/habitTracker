@@ -1,17 +1,19 @@
 const router = require("express").Router()
-const Habit = require("../models/Habit")
+const User = require("../models/User")
 
 
 //create
 
-router.get ("/new", (req,res) => {
+router.get ("/add-habit", (req,res) => {
     res.render("habits/add-habit.ejs")
 })
 
-router.post ("/new", async(req,res) => {
+router.post ("/add-habit", async(req,res) => {
     try{
-        // req.body.creator = req.session.user._id
-        await Habit.create(req.body)
+        const currentUser = await User.findById(req.session.user._id)
+        req.body.creator = req.session.user._id
+        currentUser.habits.push(req.body)
+        currentUser.save()
         res.redirect("/habits/all-habits")
     }
     catch(error){
@@ -23,8 +25,8 @@ router.post ("/new", async(req,res) => {
 
 router.get ("/all-habits", async (req,res) => {
     try{
-        const allHabits = await Habit.find()
-        res.render("habits/all-habits.ejs", {allHabits : allHabits})
+        const currentUser = await User.findById(req.session.user._id)
+        res.render("habits/all-habits.ejs", {allHabits : currentUser.habits})
     }
     catch (error) {
         console.log(error)
@@ -33,7 +35,8 @@ router.get ("/all-habits", async (req,res) => {
 
 router.get("/all-habits/:habitId", async (req, res) => {
     try {
-        const foundHabit = await Habit.findById(req.params.habitId)
+        const currentUser = await User.findById(req.session.user._id)
+        const foundHabit = currentUser.habits.id(req.params.habitId);
         res.render("habits/habit-details.ejs", {foundHabit: foundHabit})
     } catch (error) {
         console.log(error)
@@ -43,21 +46,39 @@ router.get("/all-habits/:habitId", async (req, res) => {
 //delete
 
 router.delete("/all-habits/:habitId", async (req, res) => {
-    await Habit.findByIdAndDelete (req.params.habitId)
-    res.redirect("/habits/all-habits")
-})
+    try {
+        const currentUser = await User.findById(req.session.user._id);
+        currentUser.habits.id(req.params.habitId).deleteOne();
+        await currentUser.save();
+        res.redirect("/habits/all-habits");
+} catch (error) {
+        console.log(error);
+}})
+
 
 //edit
 
 router.get("/all-habits/:habitId/edit",async (req,res)=>{
-    const foundHabit = await Habit.findById(req.params.habitId)
-    res.render("habits/edit-habit.ejs", {foundHabit: foundHabit})
+    try {
+    const currentUser = await User.findById(req.session.user._id)
+    const foundHabit = currentUser.habits.id(req.params.habitId)
+    res.render("habits/edit-habit.ejs", {foundHabit: foundHabit})   
+    } catch (error) {
+       console.log(error) 
+    }
 })
 
 
 router.put("/all-habits/:habitId/edit", async (req,res) => {
-    await Habit.findByIdAndUpdate(req.params.habitId, req.body)
+    try {
+        const currentUser = await User.findById(req.session.user._id)
+        const foundHabit = currentUser.habits.id(req.params.habitId)
+        foundHabit.set(req.body);
+        await currentUser.save();
     res.redirect(`/habits/all-habits/${req.params.habitId}`)
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 //get the date
@@ -68,16 +89,39 @@ const date = new Date()
 
 
 router.get("/today-habits", async (req, res) =>{
-    const allHabits = await Habit.find()
+    const currentUser = await User.findById(req.session.user._id)
+    const allHabits = currentUser.habits
     res.render("habits/today-habits.ejs", {weekDay: weekDay, day: day, month: month ,allHabits:allHabits})
 })
 
+///habits/all-habits/${habitId}/check
+router.post("/all-habits/:id/check", async (req, res) => {
+    try {
+        const currentUser = await User.findById(req.session.user._id);
+        const habit = currentUser.habits.id(req.params.id);
+        const today = new Date().toDateString();
+
+        if (req.body.checked) {
+            if (!habit.checkedDays.includes(today)) {
+                habit.checkedDays.push(today);
+            }
+        } else {
+            habit.checkedDays = habit.checkedDays.filter(date => date !== today);
+    }
+    await habit.save();
+    res.json(habit);
+    }catch (error) { console.log (error);}
+    
+}) 
+    ;
 
 //record
 router.get('/records', async (req,res) => {
-    const allHabits = await Habit.find()
-    const days = ['S','M','T','W','T','F','S']
-    res.render('habits/record.ejs', {days: days, allHabits:allHabits})
+    const currentUser = await User.findById(req.session.user._id)
+    const allHabits = currentUser.habits
+    const today = new Date();
+
+    res.render('habits/record.ejs', {allHabits:allHabits})
 })
 
 router.get("/icons", (req,res) => {

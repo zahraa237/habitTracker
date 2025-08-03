@@ -19,9 +19,11 @@
     <div class="habits">
     <% allHabits.forEach( (oneHabit) => {%>
         <label class="checkbox-control">
-        <input type="checkbox" name="checkbox" onchange="increaseProgress()" />
+        <input type="checkbox" name="checkbox" onchange="increaseProgress(); checkHabit('<%= oneHabit._id %>', this.checked)" 
+        <%= oneHabit.checked ? "checked" : "" %>
+        />
         <span class="custom-checkmark">
-        <img src="/images/download.jpeg"/>
+        <img src="/images/star.png"/>
         </span>
         <%= oneHabit.name %>
         </label>
@@ -42,6 +44,22 @@
         }
         window.onload = increaseProgress;
 
+        function checkHabit(habitId, isChecked) {
+            fetch(`/habits/all-habits/${habitId}/check`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ checked: isChecked }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
 </script>
 </body>
 </html>

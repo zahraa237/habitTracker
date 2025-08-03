@@ -5,32 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f2f5;
-      margin: 0;
-      padding: 20px;
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        padding: 20px;
     }
 
     h1 {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
     }
 
     .habits-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      max-width: 600px;
-      margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 600px;
+        margin: 0 auto;
     }
 
     .habit {
       background-color: #fff;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .habit-name {
@@ -81,19 +80,13 @@
     <div class="habits-container">
         <% allHabits.forEach((oneHabit) => { %>
             <div class="habit">
-            <div class="habit-header">
-                <img src="/images/<%= oneHabit.icon %>" alt="icon" class="habit-icon">
-                <div class="habit-name"><%= oneHabit.name %></div>
-            </div>
-                
-            <div class="week-days">
-            <% days.forEach((day) => { %>
-                <div class="day"><%= day %></div>
-            <% }) %>
-            </div>
+                <div class="habit-header">
+                    <img src="/images/<%= oneHabit.icon %>" alt="icon" class="habit-icon">
+                    <div class="habit-name"><%= oneHabit.name %></div>
+                </div>
+
             </div>
         <% }) %>
-    </div>
 
 </body>
 </html>

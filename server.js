@@ -7,6 +7,8 @@ const conntectToDB = require('./db.js')
 const authRoutes = require("./routes/auth.routes")
 const habitRoutes = require ("./routes/habits.routes")
 const session = require("express-session")
+const passUserToView = require('./middleware/passUserToView')
+const isSignedIn = require("./middleware/isSignedIn")
 
 // connect to database
 conntectToDB()
@@ -22,8 +24,12 @@ app.use(
         saveUninitialized: true,
     })
 );
+app.use(express.json());
+app.use(passUserToView)
+app.set("view engine", "ejs");
 
 app.use("/auth", authRoutes)
+app.use(isSignedIn)
 app.use("/habits", habitRoutes)
 
 

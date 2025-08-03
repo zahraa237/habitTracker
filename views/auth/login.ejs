@@ -1,22 +1,83 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>homepage</title>
+
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            background-color:#f3f6f3;
+        }
+        .container{
+            background-image: url("/images/mountain1.jpeg");
+            height: 600px;
+            width:1000px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin-top: 30px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .form-container{
+            display: flex;
+            height: 100px;
+            justify-content: center;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap:5px;
+            font-size: 20px;
+        }
+        input{
+            padding: 10px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 300px;
+        }
+        button{
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #94c000;
+        }
+        .link-button {
+            display: flex;
+            gap: 15px;
+            margin-top: 50px;
+            background-color: green;
+        }
+    </style>
 </head>
 <body>
-    <h1>login</h1>
+    <div class="container">
+        <div class="form-container">
+            <form action="/auth/login" method="post">
 
-    <form action="/auth/login" method="post">
-        <label for="username">username:</label>
-        <input type="text" name="username" id="username">
+                <label for="username">username:</label>
+                <input type="text" name="username" id="username">
+                <label for="password">password:</label>
+                <input type="password" name="password" id="password">
+                <button>Login</button>
+            </form>  
+        </div>
 
-        <label for="password">password:</label>
-        <input type="password" name="password" id="password">
-
-        <button>Login</button>
-    </form>
-        
+            <button class= "link-button" onclick="window.location.href='/auth/signup'">sign up</button>
+            <% if (error) { %>
+                <p style="color:red" class="error"> <%= error %></p>
+            <% } %>
+    </div>
 </body>
-</html> -->
+</html>
