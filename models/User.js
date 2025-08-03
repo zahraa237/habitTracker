@@ -16,6 +16,14 @@ const habitSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    dateCreated: {
+        type: Date,
+        default: new Date().toDateString()
+    },
+    checkedDays: {
+        type: [String],
+        default: []
+    }
 })
 
 const userSchema = new mongoose.Schema({

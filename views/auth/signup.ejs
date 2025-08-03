@@ -4,23 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
+
+        <style>
+        body{
+            display: flex;
+            justify-content: center;
+            background-color:#f3f6f3;
+        }
+        .container{
+            border: 2px solid black;
+            height: 600px;
+            width:1000px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin-top: 30px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .form-container{
+            display: flex;
+            height: 100px;
+            justify-content: center;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap:5px;
+            font-size: 20px;
+        }
+        input{
+            padding: 10px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 300px;
+        }
+        button{
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #94c000;
+        }
+        .link-button {
+            display: flex;
+            gap: 15px;
+            margin-top: 50px;
+            background-color: green;
+        }
+    </style>
 </head>
 <body>
-    <h1>sign-up</h1>
+    
+    <div class="container">
+       <h1>sign-up</h1> 
+        <div class="form-container">
+            <form action="/auth/signup" method="post">
+                <label for="username">username:</label>
+                <input type="text" name="username" id="username">
 
-    <form action="/auth/signup" method="post">
-        <h3 class="validation">hi</h3>
-        <label for="username">username:</label>
-        <input type="text" name="username" id="username">
+                <label for="password">password:</label>
+                <input type="password" name="password" id="password">
 
-        <label for="password">password:</label>
-        <input type="password" name="password" id="password">
-
-        <button>signup</button>
-    </form>
-    <% if (error) { %>
-        <p style="color:red" class="error"><%= error %></p>
-    <% } %>
-        
+                <button>signup</button>
+            </form>
+        </div>
+        <% if (error) { %>
+            <p style="color:red" class="error"><%= error %></p>
+        <% } %>
+    </div>
 </body>
 </html>

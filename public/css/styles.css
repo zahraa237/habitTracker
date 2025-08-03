@@ -105,3 +105,8 @@ display: block;
   border-radius: 20px;
   transition: width 0.3s ease;
 }
+
+add-btn{
+  padding: 50%;
+  margin-left: 50%;
+}

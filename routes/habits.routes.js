@@ -101,13 +101,13 @@ router.post("/all-habits/:id/check", async (req, res) => {
         const habit = currentUser.habits.id(req.params.id);
         const today = new Date().toDateString();
 
-        if (req.body.checked) {
-            if (!habit.checkedDays.includes(today)) {
-                habit.checkedDays.push(today);
-            }
-        } else {
-            habit.checkedDays = habit.checkedDays.filter(date => date !== today);
-    }
+    //     if (req.body.checked) {
+    //         if (!habit.checkedDays.includes(today)) {
+    //             habit.checkedDays.push(today);
+    //         }
+    //     } else {
+    //         habit.checkedDays = habit.checkedDays.filter(date => date !== today);
+    // }
     await habit.save();
     res.json(habit);
     }catch (error) { console.log (error);}
@@ -126,6 +126,23 @@ router.get('/records', async (req,res) => {
 
 router.get("/icons", (req,res) => {
     res.render("habits/icons.ejs")
+})
+
+router.get("/test",(req,res)=>{
+    res.send("SUCCESS")
+})
+
+router.put("/check/:habitId", async (req, res) => {
+    console.log("Checking habit with ID:", req.params.habitId);
+    const currentUser = await User.findById(req.session.user._id);
+    const habit = currentUser.habits.id(req.params.habitId);
+    if(habit.checked === false){
+        habit.checked = true;
+    } else{
+        habit.checked = false;
+    }
+    await currentUser.save();
+    res.redirect("/habits/today-habits");
 })
 
 module.exports = router

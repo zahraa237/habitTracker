@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt")
 //homepage
 router.get("/", (req,res) => {
     try {
-        res.render("auth/homepage.ejs")
+        res.render("auth/login.ejs", { error: null })
     } catch (error) {
         console.log(error)
     }
@@ -62,9 +62,9 @@ router.post("/signup", async (req, res) => {
     }
 });
 
-router.get("/login", (req, res) => {
-    res.render("auth/login.ejs", { error: null })
-})
+// router.get("/login", (req, res) => {
+//     res.render("auth/login.ejs", { error: null })
+// })
 
 router.post("/login", async (req, res) => {
     try {

@@ -19,9 +19,9 @@
     <div class="habits">
     <% allHabits.forEach( (oneHabit) => {%>
         <label class="checkbox-control">
-        <input type="checkbox" name="checkbox" onchange="increaseProgress(); checkHabit('<%= oneHabit._id %>', this.checked)" 
-        <%= oneHabit.checked ? "checked" : "" %>
-        />
+        <input type="checkbox" name="checkbox" onchange="changeStatus('<%= oneHabit._id %>' )" 
+        <%= oneHabit.checked ? "checked" : "" %> 
+        /> 
         <span class="custom-checkmark">
         <img src="/images/star.png"/>
         </span>
@@ -29,37 +29,42 @@
         </label>
         <br />
     <% })%>
+    <button onclick = "location.href='/habits/add-habit'" class="add-btn">+</button>
     </div>
     <div class="profile-pic"></div>
+    
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
 <script>
     let progress = 0;
-    function increaseProgress() {   
+    async function changeStatus(id) {   
+        await axios.put(`/habits/check/${id}`)
+        }
+    function updateProgressBar() {
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const total = checkboxes.length;
+        const progressBar = document.getElementById('progress-bar');
+        
 
-        const checked = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-        const percentage = (checked / total) * 100;
-            document.getElementById("progress-bar").style.width = percentage + "%";
-        }
-        window.onload = increaseProgress;
-
-        function checkHabit(habitId, isChecked) {
-            fetch(`/habits/all-habits/${habitId}/check`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ checked: isChecked }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
+            let checkedCount = 0;
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                }
             });
+
+            const totalCount = checkboxes.length;
+            const percentage = totalCount === 0 ? 0 : (checkedCount / totalCount) * 100;
+
+            progressBar.style.width = percentage + '%';
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateProgressBar);
+        });
         }
+
+        // Initial update on page load
+        updateProgressBar();
 </script>
 </body>
 </html>
