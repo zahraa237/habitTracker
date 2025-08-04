@@ -77,23 +77,48 @@ router.put("/all-habits/:habitId/edit", async (req, res) => {
   }
 });
 
-//get the date
-const date = new Date();
-const weekDay = date.toLocaleDateString("en-US", { weekday: "long" });
-const day = date.getDate();
-const month = date.toLocaleDateString("en-US", { month: "long" });
-
 router.get("/today-habits", async (req, res) => {
-  const currentUser = await User.findById(req.session.user._id);
-  const allHabits = currentUser.habits;
-  const pfp = currentUser.pfp;
-  res.render("habits/today-habits.ejs", {
-    weekDay: weekDay,
-    day: day,
-    month: month,
-    allHabits: allHabits,
-    pfp: pfp,
-  });
+  try {
+    const currentUser = await User.findById(req.session.user._id);
+    const allHabits = currentUser.habits;
+
+    const today = new Date();
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - today.getDay());
+
+    const week = [];
+
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(startOfWeek);
+      date.setDate(startOfWeek.getDate() + i);
+
+      const dateStr = date.toDateString();
+      const isToday = date.toDateString() === today.toDateString();
+
+      const habitsForDay = allHabits.map((habit) => ({
+        _id: habit._id,
+        name: habit.name,
+        reason: habit.reason,
+        icon: habit.icon,
+        isChecked: habit.checkedDays.includes(dateStr),
+      }));
+
+      week.push({
+        dayName: date.toLocaleDateString("en-US", { weekday: "long" }),
+        date: date,
+        isToday: isToday,
+        habits: habitsForDay,
+      });
+    }
+
+    res.render("habits/today-habits.ejs", {
+      pfp: currentUser.pfp,
+      week: week,
+    });
+  } catch (error) {
+    console.error("Backend exploded:", error);
+    res.status(500).send("Something went wrong.");
+  }
 });
 
 router.post("/all-habits/:id/check", async (req, res) => {
@@ -116,25 +141,73 @@ router.post("/all-habits/:id/check", async (req, res) => {
   }
 });
 
-//record
-router.get("/records", async (req, res) => {
-  const currentUser = await User.findById(req.session.user._id);
-  const allHabits = currentUser.habits;
-  const today = new Date();
+// check the task done
 
-  res.render("habits/record.ejs", {
-    allHabits: allHabits,
-    pfp: currentUser.pfp,
-  });
+router.post("/check-day", async (req, res) => {
+  try {
+    const currentUser = await User.findById(req.session.user._id); // FIXED
+    const { habitId, date } = req.body;
+
+    const habit = currentUser.habits.id(habitId);
+    if (!habit) return res.status(404).send("Habit not found");
+
+    const day = new Date(date).toDateString();
+
+    if (habit.checkedDays.includes(day)) {
+      habit.checkedDays = habit.checkedDays.filter((d) => d !== day); // uncheck
+    } else {
+      habit.checkedDays.push(day); // check
+    }
+
+    await currentUser.save();
+    res.redirect("/habits/today-habits");
+  } catch (error) {
+    console.error("Check-day error:", error);
+    res.status(500).send("An error occurred");
+  }
 });
 
-// router.get("/icons", (req,res) => {
-//     res.render("habits/icons.ejs")
-// })
+// records router
 
-// router.get("/test",(req,res)=>{
-//     res.send("SUCCESS")
-// })
+router.get("/records", async (req, res) => {
+  try {
+    const currentUser = await User.findById(req.session.user._id);
+    const allHabits = currentUser.habits;
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = today.getMonth(); // 0-indexed
+    const numDays = new Date(year, month + 1, 0).getDate();
+
+    const monthDays = [];
+
+    for (let i = 1; i <= numDays; i++) {
+      const date = new Date(year, month, i);
+      monthDays.push(date.toDateString());
+    }
+
+    // Prepare record data per habit
+    const records = allHabits.map((habit) => {
+      const days = monthDays.map((date) => ({
+        date,
+        isChecked: habit.checkedDays.includes(date),
+      }));
+      return {
+        name: habit.name,
+        icon: habit.icon,
+        days,
+      };
+    });
+
+    res.render("habits/record.ejs", {
+      pfp: currentUser.pfp,
+      records,
+    });
+  } catch (error) {
+    console.error("Records route failed like a Monday:", error);
+    res.status(500).send("Error loading records");
+  }
+});
 
 router.put("/check/:habitId", async (req, res) => {
   console.log("Checking habit with ID:", req.params.habitId);

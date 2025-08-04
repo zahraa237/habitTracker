@@ -17,7 +17,7 @@ const habitSchema = new mongoose.Schema({
   },
   dateCreated: {
     type: Date,
-    default: new Date().toDateString(),
+    default: new Date(),
   },
   checkedDays: {
     type: [String],

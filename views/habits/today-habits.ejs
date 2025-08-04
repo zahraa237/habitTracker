@@ -1,82 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weekly Habit Tracker</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    .weekdays {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: #f0f0f0;
+      padding: 0.5rem;
+      border-radius: 10px;
+    }
+
+    .weekday {
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+
+    .weekday:hover {
+      background: #e0e0e0;
+    }
+
+    .weekday-name {
+      font-weight: bold;
+    }
+
+    .weekday-date {
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    .today {
+      background: #8664e1;
+      color: white;
+    }
+
+    .today-label {
+      font-size: 0.7rem;
+      margin-top: 4px;
+    }
+
+    .cardDay {
+      display: none;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .cardDay.active {
+      display: block;
+    }
+
+    .dayHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    ul {
+      padding-left: 0;
+    }
+
+    li {
+      list-style: none;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.3);
+      margin-right: 8px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-    <div id="dates">
-            <p><%= weekDay %> | </p><br>
-            <p> <%= day %>  </p>
-            <p><%=month%>    </p>
+  <div class="container">
+    <h1>Your Weekly Habits</h1>
+
+    <div class="weekdays">
+      <% week.forEach((day, index) => { %>
+        <div 
+          class="weekday <%= day.isToday ? 'today' : '' %>" 
+          onclick="showDay(<%= index %>)">
+          <div class="weekday-name"><%= day.dayName.slice(0, 3) %></div>
+          <div class="weekday-date"><%= new Date(day.date).getDate() %></div>
+          <% if (day.isToday) { %>
+            <div class="today-label">Today</div>
+          <% } %>
+        </div>
+      <% }) %>
     </div>
-        <div class="progress-container">
-        <div class="progress-bar" id="progress-bar"></div>
-    </div>
-    <div class="habits">
-    <% allHabits.forEach( (oneHabit) => {%>
-        <label class="checkbox-control">
-        <input type="checkbox" name="checkbox" onchange="changeStatus('<%= oneHabit._id %>' )" 
-        <%= oneHabit.checked ? "checked" : "" %> 
-        /> 
-        <span class="custom-checkmark">
-        <img src="/images/star.png"/>
-        </span>
-        <img src="/images/<%= oneHabit.icon %>" class="habit-icon">
-        <%= oneHabit.name %>
-        </label>
-        <br />
-    <% })%>
-    <button onclick = "location.href='/habits/add-habit'" class="add-btn">+</button>
-    </div>
-    <div class="profile-pic">
-        <img src="/images/<%= pfp %>" class="pfp" >
-    </div>
-    
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
-<script>
-    let progress = 0;
-    async function changeStatus(id) {   
-        await axios.put(`/habits/check/${id}`)
-        
-        const today = new Date();
-        const weekday = today.toLocaleDateString('en-US', { weekday: 'long' });
-        cheakdDays.push(weekday);
+    <% week.forEach((day, index) => { %>
+      <div class="cardDay" id="card-<%= index %>">
+        <div class="dayHeader">
+          <h2><%= day.dayName %></h2>
+          <p><%= new Date(day.date).toDateString() %></p>
+        </div>
 
-        }
-    function updateProgressBar() {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const progressBar = document.getElementById('progress-bar');
+        <% if (day.habits.length === 0) { %>
+          <p>No habits for this day</p>
+        <% } else { %>
+          <ul>
+            <% day.habits.forEach(habit => { %>
+              <li>
+                <form method="POST" action="/habits/check-day">
+                  <input type="hidden" name="habitId" value="<%= habit._id %>">
+                  <input type="hidden" name="date" value="<%= new Date(day.date).toDateString() %>">
+                  <label>
+                    <input 
+                      type="checkbox"
+                      name="isChecked"
+                      <%= habit.isChecked ? 'checked' : '' %>
+                      onchange="this.form.submit()"
+                    >
+                    <%= habit.name %> - <%= habit.reason %>
+                  </label>
+                </form>
+              </li>
+            <% }) %>
+          </ul>
+        <% } %>
+      </div>
+    <% }); %>
+  </div>
 
-            let checkedCount = 0;
-            checkboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    checkedCount++;
-                }
-            });
+  <script>
+    function showDay(index) {
+      const cards = document.querySelectorAll('.cardDay');
+      cards.forEach(card => card.classList.remove('active'));
+      document.getElementById('card-' + index).classList.add('active');
+    }
 
-            const totalCount = checkboxes.length;
-            const percentage = totalCount === 0 ? 0 : (checkedCount / totalCount) * 100;
-
-            progressBar.style.width = percentage + '%';
-
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateProgressBar);
-        });
-        }
-
-        const pfp = document.querySelector('.pfp');
-        pfp.addEventListener('click', () => {
-            window.location.href = '/auth/profile';
-        });
-
-        // Initial update on page load
-        updateProgressBar();
-</script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const todayEl = document.querySelector('.today');
+      if (todayEl) {
+        todayEl.click();
+      } else {
+        showDay(0);
+      }
+    });
+  </script>
 </body>
 </html>
