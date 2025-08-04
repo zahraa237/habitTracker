@@ -112,10 +112,9 @@ display: block;
   border-radius: 20px;
   transition: width 0.3s ease;
 }
-
 .habit-icon{
-  width:50px;
-  height:50px;
+  width:10px;
+  height:10px;
 }
 add-btn{
   padding: 50%;

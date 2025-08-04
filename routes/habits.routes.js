@@ -96,7 +96,6 @@ router.get("/today-habits", async (req, res) => {
   });
 });
 
-///habits/all-habits/${habitId}/check
 router.post("/all-habits/:id/check", async (req, res) => {
   try {
     const currentUser = await User.findById(req.session.user._id);

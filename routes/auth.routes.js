@@ -96,18 +96,11 @@ router.post("/login", async (req, res) => {
 
 //profile
 router.get("/profile", async (req, res) => {
-  try {
-    const currentUser = await User.findById(req.session.user._id);
-    res.render("auth/profile.ejs", { user: currentUser });
-  } catch (error) {
-    console.log(error);
-    res.render("auth/profile.ejs", {
-      user: null,
-      error: "Could not load profile.",
-    });
-  }
+  const currentUser = await User.findById(req.session.user._id);
+  const userPfp = currentUser.pfp;
+  const name = currentUser.username;
+  res.render("auth/profile.ejs", { pfp: userPfp, name: name });
 });
-
 // router.get("/logout", (req, res) => {
 //   req.session.destroy();
 //   res.redirect("/auth/login");
