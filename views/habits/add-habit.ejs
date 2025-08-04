@@ -119,14 +119,14 @@
         const iconsClose = document.querySelector('#close')
         const container = document.querySelector('#icons-container')
                 const iconsArea = document.querySelector('#icons-area')
-        const icons = ["1.png", "2.png", "3.png", "4.png", "5.png", "7.png", "8.png", "9.png", "10.png", "11.png", "12.png", "13.png", "14.png", "15.png"]
+        const icons = ["1.png", "2.png", "3.png","5.png", "7.png", "8.png", "9.png", "10.png", "11.png", "12.png", "13.png", "14.png", "15.png", "16.png", "17.png", "18.png", "19.png"];
         let chosenIcon
 
     icons.forEach ((oneIcon) => {
         const img = document.createElement('img')
         img.src = `/images/${oneIcon}`
-        img.width = 60
-        img.height = 60
+        img.width = 65
+        img.height = 65
         img.style.margin = "10px"
         img.addEventListener('click',()=> {
             document.querySelectorAll('#icons-area img').forEach(icon => {

@@ -25,13 +25,16 @@
         <span class="custom-checkmark">
         <img src="/images/star.png"/>
         </span>
+        <img src="/images/<%= oneHabit.icon %>" class="habit-icon">
         <%= oneHabit.name %>
         </label>
         <br />
     <% })%>
     <button onclick = "location.href='/habits/add-habit'" class="add-btn">+</button>
     </div>
-    <div class="profile-pic"></div>
+    <div class="profile-pic">
+        <img src="/images/<%= pfp %>" class="pfp" >
+    </div>
     
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
@@ -40,11 +43,15 @@
     let progress = 0;
     async function changeStatus(id) {   
         await axios.put(`/habits/check/${id}`)
+        
+        const today = new Date();
+        const weekday = today.toLocaleDateString('en-US', { weekday: 'long' });
+        cheakdDays.push(weekday);
+
         }
     function updateProgressBar() {
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         const progressBar = document.getElementById('progress-bar');
-        
 
             let checkedCount = 0;
             checkboxes.forEach(checkbox => {
@@ -62,6 +69,11 @@
             checkbox.addEventListener('change', updateProgressBar);
         });
         }
+
+        const pfp = document.querySelector('.pfp');
+        pfp.addEventListener('click', () => {
+            window.location.href = '/auth/profile';
+        });
 
         // Initial update on page load
         updateProgressBar();
