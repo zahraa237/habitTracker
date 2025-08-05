@@ -47,7 +47,7 @@ router.delete("/all-habits/:habitId", async (req, res) => {
     const currentUser = await User.findById(req.session.user._id);
     currentUser.habits.id(req.params.habitId).deleteOne();
     await currentUser.save();
-    res.redirect("/habits/all-habits");
+    res.redirect("/habits/today-habits");
   } catch (error) {
     console.log(error);
   }
