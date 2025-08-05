@@ -1,151 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        body {
-            background-color: #f3f6f3;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            height: 600px;
-            justify-content: center;
-            align-items: center;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .form-container {
-            background-color: white;
-            padding: 30px 40px;
-            border-radius: 10px;
-            width: 500px;
-        }
-        h1 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        input {
-            padding: 10px;
-            font-size: 15px;
-            border-radius: 6px;
-            width: 100%;
-        }   
-        .buttons {
-            display: flex; 
-            gap: 20px;
-        }
+      body {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #fff;
+        padding: 20px;
+        padding-top: 40px;
+        width: calc(100% - 4rem);
+        max-width: 700px;
+        margin: auto;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .form-container {
+        background-color: white;
+        padding: 30px 40px;
+        border-radius: 10px;
+        width: 500px;
+      }
+      h1 {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .title {
+        text-align: center;
+        font-size: 2.4rem;
+        margin-bottom: 3rem;
+      }
+      .habit-name,
+      .habit-reason {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-bottom: 2px;
+      }
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 6px;
-        }
-        .add-btn {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .showIcons {
-            background-color: #ddd;
-        }
-        .icons-container{
-            display:flex;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            opacity:0;
-            pointer-events:none ;
-            top: 0;
-            left:0;
-            height:100vh;
-            width:100vw;
-        }
-        .model{
-            border-radius: 5px;
-            border: 2px solid black;
-            padding: 20px;
-            width:600px;
-            text-align: center;
-            background-color:white;
-            font-size: 20px;
-        }
-        .icons-container.show {
-            pointer-events:auto;
-            opacity: 1;
-        }
-        .chosen{
-            border: 2px solid black;
-            border-radius: 100%;
-        }
+      .habit-reason {
+        margin-top: 2rem;
+      }
+
+      input {
+        padding: 10px;
+        font-size: 15px;
+        border-radius: 6px;
+        width: 100%;
+      }
+      .buttons {
+        display: flex;
+        gap: 20px;
+      }
+
+      input[type="text"] {
+        border: 1px solid #ccc;
+        border-radius: 40px;
+        height: 50px;
+        padding: 0 20px;
+      }
+      .buttons {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        width: 120px;
+        height: 50px;
+        border-radius: 40px;
+        border: none;
+        cursor: pointer;
+      }
+      .add-btn {
+        background-color: #ff75dc;
+        color: white;
+      }
+
+      .add-btn:hover {
+        background-color: #ff2fcb;
+        color: white;
+      }
+      .showIcons {
+        background-color: #ddd;
+      }
+      .icons-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        opacity: 0;
+        pointer-events: none;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+      }
+      .model {
+        border-radius: 5px;
+        border: 2px solid black;
+        padding: 20px;
+        width: 600px;
+        text-align: center;
+        background-color: white;
+        font-size: 20px;
+      }
+      .icons-container.show {
+        pointer-events: auto;
+        opacity: 1;
+      }
+      .chosen {
+        border: 2px solid black;
+        border-radius: 100%;
+      }
     </style>
-</head>
-<body>
-    
+  </head>
+  <body>
     <div class="form-container">
-        <h1>add a habit</h1>
-        <form action="/habits/add-habit" method="post">
-        <label for="name">habit:</label>
-        <input id="name" name="name" type="text">
+      <h1 class="title">Add a Habit</h1>
+      <form action="/habits/add-habit" method="post">
+        <label class="habit-name" for="name">Habit</label>
+        <input id="name" name="name" type="text" />
 
-        <label for="reason">why do you want to do this?</label>
-        <input id="reason" name="reason" type="text">
+        <label class="habit-reason" for="reason"
+          >Why do you want to do this?</label
+        >
+        <input id="reason" name="reason" type="text" />
 
-        <input type="hidden" name="icon" id="iconInput">
-            <div class="buttons">
-            <button id ="showIcons" type="button">icon</button>
-            <button class="add-btn">add habit</button> 
-            </div>
-            
-    </form>
+        <input type="hidden" name="icon" id="iconInput" />
+        <div class="buttons">
+          <button id="showIcons" type="button">Icon</button>
+          <button class="add-btn">Add Habit</button>
+        </div>
+      </form>
     </div>
 
     <div class="icons-container" id="icons-container">
-    <div class="model">
+      <div class="model">
         <h1>choose an icon</h1>
         <div id="icons-area"></div>
-        
+
         <button id="close">confirm</button>
-        </div>
+      </div>
     </div>
 
     <script>
-        // const iconsContainer = document.querySelector('.icons-container')
-        const showIcons = document.querySelector('#showIcons')
-        const iconsClose = document.querySelector('#close')
-        const container = document.querySelector('#icons-container')
-                const iconsArea = document.querySelector('#icons-area')
-        const icons = ["1.png", "2.png", "3.png","5.png", "7.png", "8.png", "9.png", "10.png", "11.png", "12.png", "13.png", "14.png", "15.png", "16.png", "17.png", "18.png", "19.png"];
-        let chosenIcon
+      // const iconsContainer = document.querySelector('.icons-container')
+      const showIcons = document.querySelector("#showIcons");
+      const iconsClose = document.querySelector("#close");
+      const container = document.querySelector("#icons-container");
+      const iconsArea = document.querySelector("#icons-area");
+      const icons = [
+        "1.png",
+        "2.png",
+        "3.png",
+        "5.png",
+        "7.png",
+        "8.png",
+        "9.png",
+        "10.png",
+        "11.png",
+        "12.png",
+        "13.png",
+        "14.png",
+        "15.png",
+        "16.png",
+        "17.png",
+        "18.png",
+        "19.png",
+      ];
+      let chosenIcon;
 
-    icons.forEach ((oneIcon) => {
-        const img = document.createElement('img')
-        img.src = `/images/${oneIcon}`
-        img.width = 65
-        img.height = 65
-        img.style.margin = "10px"
-        img.addEventListener('click',()=> {
-            document.querySelectorAll('#icons-area img').forEach(icon => {
-                icon.classList.remove('chosen');
-            })
-            img.classList.add("chosen")
-            chosenIcon = oneIcon
+      icons.forEach((oneIcon) => {
+        const img = document.createElement("img");
+        img.src = `/images/${oneIcon}`;
+        img.width = 65;
+        img.height = 65;
+        img.style.margin = "10px";
+        img.addEventListener("click", () => {
+          document.querySelectorAll("#icons-area img").forEach((icon) => {
+            icon.classList.remove("chosen");
+          });
+          img.classList.add("chosen");
+          chosenIcon = oneIcon;
 
-            document.getElementById("iconInput").value = chosenIcon;
-        })
-        iconsArea.appendChild(img)
-    })
+          document.getElementById("iconInput").value = chosenIcon;
+        });
+        iconsArea.appendChild(img);
+      });
 
-    showIcons.addEventListener('click', () => {
-        container.classList.add('show') 
-    })
-    iconsClose.addEventListener('click', () => {
-        container.classList.remove('show') 
-    })
+      showIcons.addEventListener("click", () => {
+        container.classList.add("show");
+      });
+      iconsClose.addEventListener("click", () => {
+        container.classList.remove("show");
+      });
     </script>
-</body>
+  </body>
 </html>

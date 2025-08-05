@@ -114,6 +114,7 @@ router.get("/today-habits", async (req, res) => {
     res.render("habits/today-habits.ejs", {
       pfp: currentUser.pfp,
       week: week,
+      habits: allHabits,
     });
   } catch (error) {
     console.error("Backend exploded:", error);
