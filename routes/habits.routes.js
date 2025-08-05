@@ -127,12 +127,6 @@ router.post("/all-habits/:id/check", async (req, res) => {
     const habit = currentUser.habits.id(req.params.id);
     const today = new Date().toDateString();
 
-    //     if (req.body.checked) {
-    //         if (!habit.checkedDays.includes(today)) {
-    //             habit.checkedDays.push(today);
-    //         }
-    //     } else {
-    //         habit.checkedDays = habit.checkedDays.filter(date => date !== today);
     // }
     await habit.save();
     res.json(habit);
@@ -195,6 +189,7 @@ router.get("/records", async (req, res) => {
       return {
         name: habit.name,
         icon: habit.icon,
+        id: habit._id,
         days,
       };
     });

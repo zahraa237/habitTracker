@@ -1,19 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fff;
+      padding: 20px;
+      padding-top: 60px;
+      width: calc(100% - 4rem);
+      max-width: 700px;
+      margin: auto;
+        f
+    }
+    .container {
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 4rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      font-size: 20px;
+    }
+    input {
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 300px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #94c000;
+    }
+  </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <h1>edit habit</h1>
-    <form action="/habits/all-habits/<%=foundHabit._id%>/edit?_method=PUT" method="post">
+  </head>
+  <body>
+    <h1 class="title">Edit Habit</h1>
+    <div class="container">
+      <form
+        action="/habits/all-habits/<%=foundHabit._id%>/edit?_method=PUT"
+        method="post"
+      >
         <label for="name">habit:</label>
-        <input id="name" name="name" type="text" value="<%=foundHabit.name%>">
+        <input id="name" name="name" type="text" value="<%=foundHabit.name%>" />
 
         <label for="reason">why do you want to do this?</label>
-        <input id="reason" name="reason" type="text" value="<%=foundHabit.reason%>">
+        <input
+          id="reason"
+          name="reason"
+          type="text"
+          value="<%=foundHabit.reason%>"
+        />
         <button>edit habit</button>
-    </form>
-</body>
+      </form>
+    </div>
+  </body>
 </html>

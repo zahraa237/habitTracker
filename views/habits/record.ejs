@@ -1,66 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Records</title>
     <style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f0f2f5;
-        margin: 0;
+      body {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #fff;
         padding: 20px;
-    }
+        padding-top: 80px;
+        width: calc(100% - 4rem);
+        max-width: 1200px;
+        margin: auto;
+      }
+      .title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3.4rem;
+      }
 
-.month-days {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-top: 10px;
-}
+      .month-days {
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 10px;
+      }
 
-.day {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: #e0e0e0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #333;
-  transition: background-color 0.3s;
-}
+      .day {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #333;
+      }
+      .habits-container {
+        padding: 20px;
+      }
 
-.day:hover {
-  background-color: #4caf50;
-  color: white;
-  cursor: pointer;
-}
-
+      .habit {
+        margin-bottom: 1.2rem;
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+        border-radius: 34px;
+        border: 1px solid #ddd;
+        position: relative;
+        padding: 2.8rem;
+      }
+      .habit-link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 100;
+        border-radius: 34px;
+      }
+      .habit-link:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+      .habit-header {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .habit-name {
+        font-size: 1.4rem;
+        word-break: break-word;
+      }
+      .habit-name::first-letter {
+        text-transform: uppercase;
+      }
+      .habit-icon {
+        width: 60px;
+        height: 60px;
+        margin-right: 5px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <h1 class="title">Your Habits</h1>
+    <div class="habits-container">
+      <% records.forEach(habit => { %>
+      <div class="habit">
+        <a class="habit-link" href="/habits/all-habits/<%= habit.id %>"></a>
+        <div class="habit-header">
+          <img src="/images/<%= habit.icon %>" alt="icon" class="habit-icon" />
+          <div class="habit-name"><%= habit.name %></div>
+        </div>
 
-  <div class="habits-container">
-  <% records.forEach(habit => { %>
-    <div class="habit">
-      <div class="habit-header">
-        <img src="/images/<%= habit.icon %>" alt="icon" class="habit-icon">
-        <div class="habit-name"><%= habit.name %></div>
-      </div>
-
-      <div class="month-days">
-        <% habit.days.forEach((day, index) => { %>
+        <div class="month-days">
+          <% habit.days.forEach((day, index) => { %>
           <div class="day" title="<%= day.date %>">
             <%= day.isChecked ? "⭐" : index + 1 %>
           </div>
-        <% }) %>
+          <% }) %>
+        </div>
       </div>
+      <% }) %>
     </div>
-  <% }) %>
-</div>
-
-
-</body>
+  </body>
 </html>

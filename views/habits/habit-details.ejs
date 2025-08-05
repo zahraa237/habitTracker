@@ -1,20 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>habit details</h1>
-    <img src="/images/<%=foundHabit.icon %>">
-    <p>name: <%=foundHabit.name %></p>
-    <p>why do you wanna do this? <%=foundHabit.reason%></p>
+  <style>
+    body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fff;
+      padding: 20px;
+      padding-top: 60px;
+      width: calc(100% - 4rem);
+      max-width: 700px;
+      margin: auto;
+    }
+    .title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 4rem;
+    }
+    .habit-details {
+      display: flex;
+      flex-direction: column;
+      align-items: left;
 
+    }
+    .habit-container {
+        padding: 28px 40px;
+        background-color: rgb(255, 242, 252);
+        border-radius: 40px;
+    }
+    .habit-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    img {
+      width: 100px;
+      height: 100px;
+    }
+    .habit-name {
+      margin: 0 10px;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .habit-name:first-letter {
+      text-transform: uppercase;
+    }
+    .habit-description {
+      padding: 2rem;
+      padding-top: 0;
+      font-size: 1.2rem;
 
-    <form action="/habits/all-habits/<%=foundHabit._id%>?_method=DELETE" method="post">
-        <button type="submit">Delete</button>
-    </form>
-    <a href="/habits/all-habits/<%=foundHabit._id%>/edit">edit</a>
-</body>
+    }
+    .desc-text {
+      margin: 0;
+      font-size: 1.2rem;
+      margin-bottom: 50px;
+    }
+    form, button, a {
+        width: 100px;
+        height: 50px;
+        border: none;
+        background-color: #000000;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 2rem;
+        font-size: 16px;
+        color: #ffffff;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        line-height: 50px;
+        cursor: pointer;
+    }
+    button:hover, a:hover {
+      background-color: #1f1f1f;
+    }
+    button.delete-bttn {
+      background-color: rgb(218, 111, 111);
+      color: white;
+
+    }
+    button.delete-bttn:hover {
+      background-color: rgb(255, 45, 45);
+    }
+    .habit-bttns {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+
+  </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habit Details</title>
+  </head>
+  <div>
+    <h1 class="title">Habit Details</h1>
+    <div class="habit-container">
+ 
+    <div class="habit-details">
+      <div class="habit-header">
+        <img src="/images/<%=foundHabit.icon %>" />
+        <p class="habit-name"><%=foundHabit.name %></p>
+      </div>
+    </div>
+
+    <div class="habit-description">
+      <p class="desc-text">Why do you wanna do this? <%=foundHabit.reason%></p>
+      <div class="habit-bttns">
+      <form
+        action="/habits/all-habits/<%=foundHabit._id%>?_method=DELETE"
+        method="post"
+      >
+        <button class="delete-bttn" type="submit">Delete</button>
+      </form>
+
+      <a href="/habits/all-habits/<%=foundHabit._id%>/edit">Edit</a>
+      </div>
+    </div>
+</div>
+  </body>
 </html>

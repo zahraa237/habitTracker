@@ -1,118 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Weekly Habit Tracker</title>
-  <link rel="stylesheet" href="/css/styles.css" />
-  <style>
-    body {
-      font-family: sans-serif;
-      background: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weekly Habit Tracker</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 1rem;
-    }
+      .container {
+        max-width: 900px;
+        margin-top: 20px;
+        padding: 1rem;
+      }
 
-    .weekdays {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-      background: #f0f0f0;
-      padding: 0.5rem;
-      border-radius: 10px;
-    }
+      .weekdays {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        background: #f0f0f0;
+        padding: 0.5rem;
+        border-radius: 10px;
+      }
 
-    .weekday {
-      flex: 1;
-      text-align: center;
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 8px;
-    }
+      .weekday {
+        flex: 1;
+        text-align: center;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 8px;
+      }
 
-    .weekday:hover {
-      background: #e0e0e0;
-    }
+      .weekday:hover {
+        background: #e0e0e0;
+      }
+      .weekday.active {
+        background: #8664e1;
+        color: white;
+      }
 
-    .weekday-name {
-      font-weight: bold;
-    }
+      .weekday-name {
+        font-weight: bold;
+      }
 
-    .weekday-date {
-      font-size: 0.8rem;
-      color: #555;
-    }
+      .weekday-date {
+        font-size: 0.8rem;
+        color: #555;
+      }
 
-    .today {
-      background: #8664e1;
-      color: white;
-    }
+      .today {
+        background: #8664e1;
+        color: white;
+      }
 
-    .today-label {
-      font-size: 0.7rem;
-      margin-top: 4px;
-    }
+      .today-label {
+        font-size: 0.7rem;
+        margin-top: 4px;
+      }
 
-    .cardDay {
-      display: none;
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-    }
+      .cardDay {
+        display: none;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
 
-    .cardDay.active {
-      display: block;
-    }
+      .cardDay.active {
+        display: block;
+      }
 
-    .dayHeader {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+      .dayHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-    ul {
-      padding-left: 0;
-    }
+      input[type="checkbox"] {
+        transform: scale(1.3);
+        margin-right: 8px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Your Weekly Habits</h1>
+       <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      <div class="weekdays">
+        <% week.forEach((day, index) => { %>
+        <div
+          class="weekday <%= day.isToday ? 'today' : '' %>"
+          onclick=handleWeekdayClick(event)
+          id="weekday-<%= index %>"
 
-    li {
-      list-style: none;
-      margin-bottom: 0.5rem;
-    }
-
-    input[type="checkbox"] {
-      transform: scale(1.3);
-      margin-right: 8px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Your Weekly Habits</h1>
-
-    <div class="weekdays">
-      <% week.forEach((day, index) => { %>
-        <div 
-          class="weekday <%= day.isToday ? 'today' : '' %>" 
-          onclick="showDay(<%= index %>)">
+        >
           <div class="weekday-name"><%= day.dayName.slice(0, 3) %></div>
           <div class="weekday-date"><%= new Date(day.date).getDate() %></div>
           <% if (day.isToday) { %>
-            <div class="today-label">Today</div>
+          <!-- <div class="today-label">Today</div> -->
           <% } %>
         </div>
-      <% }) %>
-    </div>
+        <% }) %>
+      </div>
 
-    <% week.forEach((day, index) => { %>
+      <% week.forEach((day, index) => { %>
       <div class="cardDay" id="card-<%= index %>">
         <div class="dayHeader">
           <h2><%= day.dayName %></h2>
@@ -120,47 +120,85 @@
         </div>
 
         <% if (day.habits.length === 0) { %>
-          <p>No habits for this day</p>
+        <p>No habits for this day</p>
         <% } else { %>
-          <ul>
-            <% day.habits.forEach(habit => { %>
-              <li>
-                <form method="POST" action="/habits/check-day">
-                  <input type="hidden" name="habitId" value="<%= habit._id %>">
-                  <input type="hidden" name="date" value="<%= new Date(day.date).toDateString() %>">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      name="isChecked"
-                      <%= habit.isChecked ? 'checked' : '' %>
-                      onchange="this.form.submit()"
-                    >
-                    <%= habit.name %> - <%= habit.reason %>
-                  </label>
-                </form>
-              </li>
-            <% }) %>
-          </ul>
+          <% day.habits.forEach(habit => { %>
+
+            <form method="POST" action="/habits/check-day">
+              <input type="hidden" name="habitId" value="<%= habit._id %>" />
+              <input
+                type="hidden"
+                name="date"
+                value="<%= new Date(day.date).toDateString() %>"
+              />
+              <label>
+                <input type="checkbox" name="isChecked" <%= habit.isChecked ?
+                'checked' : '' %> onchange="this.form.submit(), updateProgressBar()" > <%= habit.name
+                %> 
+                <span class="custom-checkmark">
+                <img src="/images/star.png"/>
+              </label>
+            </form>
+          <% }) %>
         <% } %>
       </div>
-    <% }); %>
-  </div>
+      <% }); %>
+    </div>
+    <button onclick = "location.href='/habits/add-habit'" class="add-btn">+</button>
 
-  <script>
-    function showDay(index) {
-      const cards = document.querySelectorAll('.cardDay');
-      cards.forEach(card => card.classList.remove('active'));
-      document.getElementById('card-' + index).classList.add('active');
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const todayEl = document.querySelector('.today');
-      if (todayEl) {
-        todayEl.click();
-      } else {
-        showDay(0);
+    <script>
+      function showDay(index) {
+        const cards = document.querySelectorAll(".cardDay");
+        cards.forEach((card) => card.classList.remove("active"));
+        document.getElementById("card-" + index).classList.add("active");
       }
-    });
-  </script>
-</body>
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const todayEl = document.querySelector(".today");
+        if (todayEl) {
+          todayEl.click();
+        } else {
+          showDay(0);
+        }
+      });
+
+      function handleWeekdayClick(event) {
+        showDay(event);
+
+        const weekdays = document.querySelectorAll(".weekday");
+        weekdays.forEach((day) => day.classList.remove("active"));
+        event.classList.add("active");
+      }
+
+      function updateProgressBar() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const progressBar = document.getElementById("progress-bar");
+
+        let checkedCount = 0;
+        checkboxes.forEach((checkbox) => {
+          if (checkbox.checked) {
+            checkedCount++;
+          }
+        });
+
+        const totalCount = checkboxes.length;
+        const percentage =
+          totalCount === 0 ? 0 : (checkedCount / totalCount) * 100;
+
+        progressBar.style.width = percentage + "%";
+
+        checkboxes.forEach((checkbox) => {
+          checkbox.addEventListener("change", updateProgressBar);
+        });
+      }
+
+      const pfp = document.querySelector(".pfp");
+      pfp.addEventListener("click", () => {
+        window.location.href = "/auth/profile";
+      });
+
+      // Initial update on page load
+      updateProgressBar();
+    </script>
+  </body>
 </html>
