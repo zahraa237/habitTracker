@@ -21,15 +21,6 @@ router.post("/add-habit", async (req, res) => {
 
 //read
 
-router.get("/all-habits", async (req, res) => {
-  try {
-    const currentUser = await User.findById(req.session.user._id);
-    res.render("habits/all-habits.ejs", { allHabits: currentUser.habits });
-  } catch (error) {
-    console.log(error);
-  }
-});
-
 router.get("/all-habits/:habitId", async (req, res) => {
   try {
     const currentUser = await User.findById(req.session.user._id);
@@ -117,22 +108,7 @@ router.get("/today-habits", async (req, res) => {
       habits: allHabits,
     });
   } catch (error) {
-    console.error("Backend exploded:", error);
-    res.status(500).send("Something went wrong.");
-  }
-});
-
-router.post("/all-habits/:id/check", async (req, res) => {
-  try {
-    const currentUser = await User.findById(req.session.user._id);
-    const habit = currentUser.habits.id(req.params.id);
-    const today = new Date().toDateString();
-
-    // }
-    await habit.save();
-    res.json(habit);
-  } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 });
 
@@ -171,7 +147,7 @@ router.get("/records", async (req, res) => {
     const today = new Date();
 
     const year = today.getFullYear();
-    const month = today.getMonth(); // 0-indexed
+    const month = today.getMonth();
     const numDays = new Date(year, month + 1, 0).getDate();
 
     const monthDays = [];
@@ -200,8 +176,7 @@ router.get("/records", async (req, res) => {
       records,
     });
   } catch (error) {
-    console.error("Records route failed like a Monday:", error);
-    res.status(500).send("Error loading records");
+    console.error(error);
   }
 });
 

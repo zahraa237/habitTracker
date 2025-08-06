@@ -1,0 +1,68 @@
+# Project 1: 'habit-tracker'
+
+## Introduction
+
+I chose to build ahabit tracker website for my project 2 at General Assembly Software Engineering Bootcamp. which you can check [here]().
+
+## Contents
+
+- [Introduction](#Introduction)
+- [Contents](#Contents)
+- [Project Brief](#Project-Brief)
+- [Technologies](#Technologies)
+- [Grid Design](#Grid-Design)
+- [Game Mechanics](#Game-Mechanics)
+- [Adding the bombs](#Adding-the-bombs)
+  - [clicking squares](#clicking-squares)
+  - [Losing](#Loss-Logic)
+  - [Winning](#Win-Logic)
+- [In Conclusion](#In-Conclusion)
+
+## Project Brief
+
+my website will halp you keep track of habits that you are trying to build by being able to checking your progress everyday, week, and month
+
+## Technologies
+
+- HTML
+- CSS
+- JavaScript
+  *Git
+  *Express
+  *mongoDB
+  *node.js
+
+![the main page of the website](/images/Screenshot 2025-08-06 120959.png)
+
+# Gwebsiteame Mechanics
+
+## creating habits
+
+the first page you will see is this weeks habits, and on the same page you can click the (+) button which will allow you to creat new habits by giving a name, a reason, and choosing an icon
+
+## calendar
+
+from the main page you can click the calendar butten to see your progress for each habit this month, then when clicking on the habit you will see the habit details and will be able to edit them or delete the habit
+to get the number of days for each month i used
+
+````
+const year = today.getFullYear();
+    const month = today.getMonth();
+    const numDays = new Date(year, month + 1, 0).getDate();
+
+    const monthDays = [];
+
+    for (let i = 1; i <= numDays; i++) {
+      const date = new Date(year, month, i);
+      monthDays.push(date.toDateString());
+    }
+    ```
+
+## Additional features
+
+- the abiltity to delete your account
+-change password
+## In Conclusion
+
+All in all, this was not really easy but i had so much fun and learned a lot working on it, and i might work on adding more features on my own time.
+````

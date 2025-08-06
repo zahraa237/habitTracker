@@ -101,9 +101,5 @@ router.get("/profile", async (req, res) => {
   const name = currentUser.username;
   res.render("auth/profile.ejs", { pfp: userPfp, name: name });
 });
-// router.get("/logout", (req, res) => {
-//   req.session.destroy();
-//   res.redirect("/auth/login");
-// });
 
 module.exports = router;

@@ -46,7 +46,7 @@
         gap: 7px;
         background: #f0f0f0;
         padding: 0.5rem;
-        border-radius:24px;
+        border-radius: 24px;
         margin-bottom: 2.8rem;
       }
 
@@ -73,7 +73,7 @@
       }
 
       .weekday.active {
-        background: rgb(244, 120, 255);;
+        background: pink;
         color: white;
       }
 
@@ -126,7 +126,7 @@
         left: 1.5rem;
         width: 100px;
         height: 50px;
-        background-color: rgb(244, 120, 255);
+        background-color: pink;
         color: white;
         font-size: 16px;
         border: none;
@@ -140,7 +140,7 @@
         right: 1.5rem;
         width: 52px;
         height: 52px;
-        background-color: rgb(244, 120, 255);
+        background-color: pink;
         color: white;
         font-size: 2rem;
         border: none;
@@ -150,8 +150,9 @@
         transition: background 0.3s;
       }
 
-      .records-btn:hover, .add-btn:hover {
-        background-color: #ee32ff;
+      .records-btn:hover,
+      .add-btn:hover {
+        background-color: pink;
       }
 
       .progress-container {
@@ -166,10 +167,8 @@
       .progress-bar {
         height: 100%;
         width: 0%;
-        background: rgb(244, 120, 255);3;
-        transition: width 0.3s ease-in-out;
       }
-      .profile-pic{
+      .profile-pic {
         position: fixed;
         top: 20px;
         left: 20px;
@@ -249,7 +248,7 @@
 
     <script>
       function showDay(index) {
-        localStorage.setItem("selectedDayIndex", index); // Save selection
+        localStorage.setItem("selectedDayIndex", index);
 
         document.querySelectorAll(".cardDay").forEach((card) => {
           card.classList.remove("active");
@@ -275,15 +274,6 @@
           ? (checkedCount / checkboxes.length) * 100
           : 0;
         progressBar.style.width = percentage + "%";
-      }
-
-      function saveCurrentDay() {
-        // Already saved on selection, this is just a backup
-        const active = document.querySelector(".weekday.active");
-        if (active) {
-          const index = active.getAttribute("data-index");
-          localStorage.setItem("selectedDayIndex", index);
-        }
       }
 
       // Init

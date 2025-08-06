@@ -1,163 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>login</title>
 
-        <style>
-        body{
-            display: flex;
-            justify-content: center;
-            background-color:#f3f6f3;
-        }
-        .container{
-            border: 2px solid black;
-            height: 600px;
-            width:1000px;
-            background-repeat: no-repeat;
-            background-size: cover;
-            margin-top: 30px;
-            border-radius: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .form-container{
-            display: flex;
-            height: 100px;
-            justify-content: center;
-        }
-        form{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap:5px;
-            font-size: 20px;
-        }
-        input{
-            padding: 10px;
-            font-size: 15px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            width: 300px;
-        }
-        button{
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        button:hover{
-            background-color: #94c000;
-        }
-        .link-button {
-            display: flex;
-            gap: 15px;
-            margin-top: 50px;
-            background-color: green;
-        }
-                .showIcons {
-            background-color: #ddd;
-        }
-        .icons-container{
-            display:flex;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            opacity:0;
-            pointer-events:none ;
-            top: 0;
-            left:0;
-            height:100vh;
-            width:100vw;
-        }
-        .model{
-            border-radius: 5px;
-            border: 2px solid black;
-            padding: 20px;
-            width:600px;
-            text-align: center;
-            background-color:white;
-            font-size: 20px;
-        }
-        .icons-container.show {
-            pointer-events:auto;
-            opacity: 1;
-        }
-        .chosen{
-            border: 2px solid black;
-            border-radius: 100%;
-        }
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        background-color: #f3f6f3;
+      }
+      .container {
+        border: 2px solid black;
+        height: 600px;
+        width: 1000px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-top: 30px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .form-container {
+        display: flex;
+        height: 100px;
+        justify-content: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        font-size: 20px;
+      }
+      input {
+        padding: 10px;
+        font-size: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        width: 300px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: pink;
+      }
+      .link-button {
+        display: flex;
+        gap: 15px;
+        margin-top: 50px;
+        background-color: green;
+      }
+      .showIcons {
+        background-color: #ddd;
+      }
+      .icons-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        opacity: 0;
+        pointer-events: none;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+      }
+      .model {
+        border-radius: 5px;
+        border: 2px solid black;
+        padding: 20px;
+        width: 600px;
+        text-align: center;
+        background-color: white;
+        font-size: 20px;
+      }
+      .icons-container.show {
+        pointer-events: auto;
+        opacity: 1;
+      }
+      .chosen {
+        border: 2px solid black;
+        border-radius: 100%;
+      }
+      h1 {
+        margin-bottom: 70px;
+      }
     </style>
-</head>
-<body>
-    
+  </head>
+  <body>
     <div class="container">
-        <h1>sign-up</h1> 
-        <div class="form-container">
-            <form action="/auth/signup" method="post">
+      <h1>sign-up</h1>
+      <div class="form-container">
+        <form action="/auth/signup" method="post">
+          <input type="hidden" name="pfp" id="iconInput" />
 
-                <input type="hidden" name="pfp" id="iconInput">
+          <label for="username">username:</label>
+          <input type="text" name="username" id="username" />
 
-                <label for="username">username:</label>
-                <input type="text" name="username" id="username">
+          <label for="password">password:</label>
+          <input type="password" name="password" id="password" />
 
-                <label for="password">password:</label>
-                <input type="password" name="password" id="password">
-
-                <button>signup</button>
-                <button id ="showIcons" type="button">icon</button>
-            </form>
-        </div>
-        <% if (error) { %>
-            <p style="color:red" class="error"><%= error %></p>
-        <% } %>
+          <button>signup</button>
+          <button id="showIcons" type="button">icon</button>
+        </form>
+      </div>
+      <% if (error) { %>
+      <p style="color: red" class="error"><%= error %></p>
+      <% } %>
     </div>
-        <div class="icons-container" id="icons-container">
-    <div class="model">
+    <div class="icons-container" id="icons-container">
+      <div class="model">
         <h1>choose an icon</h1>
         <div id="icons-area"></div>
-        
+
         <button id="close">confirm</button>
-        </div>
+      </div>
     </div>
     <script>
-                const showIcons = document.querySelector('#showIcons')
-        const iconsClose = document.querySelector('#close')
-        const container = document.querySelector('#icons-container')
-                const iconsArea = document.querySelector('#icons-area')
-        const icons = ["pfp1.jpeg","pfp2.jpeg","pfp3.jpeg","pfp5.jpeg","pfp6.jpeg","pfp7.jpeg","pfp8.jpeg","pfp9.jpeg","pfp10.jpeg","pfp11.jpeg","pfp12.jpeg","pfp13.jpeg","pfp14.jpeg","pfp15.jpeg","pfp16.jpeg","pfp17.jpeg","pfp18.jpeg","pfp19.jpeg","pfp20.jpeg","pfp21.jpeg"];
-        let chosenIcon
+      const showIcons = document.querySelector("#showIcons");
+      const iconsClose = document.querySelector("#close");
+      const container = document.querySelector("#icons-container");
+      const iconsArea = document.querySelector("#icons-area");
+      const icons = [
+        "pfp1.jpeg",
+        "pfp2.jpeg",
+        "pfp3.jpeg",
+        "pfp5.jpeg",
+        "pfp6.jpeg",
+        "pfp7.jpeg",
+        "pfp8.jpeg",
+        "pfp9.jpeg",
+        "pfp10.jpeg",
+        "pfp11.jpeg",
+        "pfp12.jpeg",
+        "pfp13.jpeg",
+        "pfp14.jpeg",
+        "pfp15.jpeg",
+        "pfp16.jpeg",
+        "pfp17.jpeg",
+        "pfp18.jpeg",
+        "pfp19.jpeg",
+        "pfp20.jpeg",
+        "pfp21.jpeg",
+      ];
+      let chosenIcon;
 
-    icons.forEach ((oneIcon) => {
-        const img = document.createElement('img')
-        img.src = `/images/${oneIcon}`
-        img.width = 75
-        img.height = 75
-        img.style.borderRadius = "100%"
-        img.style.margin = "10px"
-        img.addEventListener('click',()=> {
-            document.querySelectorAll('#icons-area img').forEach(icon => {
-                icon.classList.remove('chosen');
-                
-            })
-            img.classList.add("chosen")
-            chosenIcon = oneIcon
-            console.log(chosenIcon)
-            document.getElementById("iconInput").value = chosenIcon;
-        })
-        iconsArea.appendChild(img)
-    })
+      icons.forEach((oneIcon) => {
+        const img = document.createElement("img");
+        img.src = `/images/${oneIcon}`;
+        img.width = 75;
+        img.height = 75;
+        img.style.borderRadius = "100%";
+        img.style.margin = "10px";
+        img.addEventListener("click", () => {
+          document.querySelectorAll("#icons-area img").forEach((icon) => {
+            icon.classList.remove("chosen");
+          });
+          img.classList.add("chosen");
+          chosenIcon = oneIcon;
+          console.log(chosenIcon);
+          document.getElementById("iconInput").value = chosenIcon;
+        });
+        iconsArea.appendChild(img);
+      });
 
-    showIcons.addEventListener('click', () => {
-        container.classList.add('show') 
-    })
-    iconsClose.addEventListener('click', () => {
-        container.classList.remove('show') 
-    })
+      showIcons.addEventListener("click", () => {
+        container.classList.add("show");
+      });
+      iconsClose.addEventListener("click", () => {
+        container.classList.remove("show");
+      });
     </script>
-</body>
+  </body>
 </html>
