@@ -2,7 +2,7 @@
 
 ## Introduction
 
-I chose to build ahabit tracker website for my project 2 at General Assembly Software Engineering Bootcamp. which you can check [here]().
+I chose to build ahabit tracker website for my project 2 at General Assembly Software Engineering Bootcamp. which you can check [here](https://habittracker-n5ol.onrender.com/auth/login).
 
 ## Contents
 
@@ -10,12 +10,6 @@ I chose to build ahabit tracker website for my project 2 at General Assembly Sof
 - [Contents](#Contents)
 - [Project Brief](#Project-Brief)
 - [Technologies](#Technologies)
-- [Grid Design](#Grid-Design)
-- [Game Mechanics](#Game-Mechanics)
-- [Adding the bombs](#Adding-the-bombs)
-  - [clicking squares](#clicking-squares)
-  - [Losing](#Loss-Logic)
-  - [Winning](#Win-Logic)
 - [In Conclusion](#In-Conclusion)
 
 ## Project Brief
